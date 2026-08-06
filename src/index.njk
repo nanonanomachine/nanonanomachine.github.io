@@ -1,0 +1,62 @@
+---
+layout: base.njk
+pagination:
+  data: collections.posts
+  size: 20
+  alias: posts
+  # Without this Eleventy emits ZERO pages when the collection is empty, so a
+  # site with no posts yet has no index at all. Force the empty page.
+  generatePageOnEmptyData: true
+permalink: "{% if pagination.pageNumber == 0 %}/{% else %}/page/{{ pagination.pageNumber + 1 }}/{% endif %}"
+---
+{% if pagination.pageNumber == 0 %}
+  <section class="intro">
+    <h1>{{ site.author }}</h1>
+    <p class="bio">{{ site.bio }}</p>
+  </section>
+{% else %}
+  <section class="intro">
+    <h1>Writing</h1>
+    <p class="bio">Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}.</p>
+  </section>
+{% endif %}
+
+<section class="ledger" aria-labelledby="writing">
+  <h2 class="section-label" id="writing">Writing</h2>
+
+  {% if posts.length %}
+    <ol class="entries" start="{{ pagination.pageNumber * 20 + 1 }}">
+      {% for post in posts %}
+        <li class="entry">
+          <time class="entry-date" datetime="{{ post.date | machineDate }}">
+            {{ post.date | machineDate }}
+          </time>
+          <div class="entry-body">
+            <a class="entry-title" href="{{ post.url }}">{{ post.data.title }}</a>
+            {% if post.data.dek %}<p class="entry-dek">{{ post.data.dek }}</p>{% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="empty">Nothing published yet.</p>
+  {% endif %}
+
+  {% if pagination.pages.length > 1 %}
+    <nav class="pager" aria-label="Pagination">
+      {% if pagination.href.previous %}
+        <a class="pager-link" href="{{ pagination.href.previous }}" rel="prev">← Newer</a>
+      {% else %}
+        <span class="pager-link is-disabled" aria-hidden="true">← Newer</span>
+      {% endif %}
+
+      <span class="pager-count">{{ pagination.pageNumber + 1 }} / {{ pagination.pages.length }}</span>
+
+      {% if pagination.href.next %}
+        <a class="pager-link" href="{{ pagination.href.next }}" rel="next">Older →</a>
+      {% else %}
+        <span class="pager-link is-disabled" aria-hidden="true">Older →</span>
+      {% endif %}
+    </nav>
+  {% endif %}
+</section>

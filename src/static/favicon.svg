@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- The site's signature at 16px: a table header rule in the signal colour
+       over data rows. Abstract at favicon size, on-brand at any size. -->
+  <rect width="32" height="32" rx="6" fill="#0E1013"/>
+  <rect x="6" y="10" width="20" height="2.5" rx="1.25" fill="#FF6AA0"/>
+  <rect x="6" y="16" width="20" height="2" rx="1" fill="#8C949E"/>
+  <rect x="6" y="21" width="13" height="2" rx="1" fill="#4A515A"/>
+</svg>

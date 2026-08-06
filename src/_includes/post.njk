@@ -1,0 +1,21 @@
+---
+layout: base.njk
+---
+<article class="post">
+  <header class="post-head">
+    <p class="eyebrow">
+      <time datetime="{{ date | machineDate }}">{{ date | machineDate }}</time>
+    </p>
+    <h1>{{ title }}</h1>
+    {% if dek %}<p class="dek">{{ dek }}</p>{% endif %}
+  </header>
+
+  <div class="prose">{{ content | safe }}</div>
+
+  {% if repo %}
+    <aside class="repo-note">
+      The harness is at <a href="{{ repo }}">{{ repo | replace("https://github.com/", "") }}</a>.
+      It runs in about two minutes.
+    </aside>
+  {% endif %}
+</article>

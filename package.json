@@ -1,0 +1,17 @@
+{
+  "name": "yoheinakamura-dev",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal site — yoheinakamura.dev",
+  "type": "module",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "author": "Yohei Nakamura",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

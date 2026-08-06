@@ -1,0 +1,12 @@
+---
+permalink: /robots.txt
+eleventyExcludeFromCollections: true
+---
+{% if site.indexable %}User-agent: *
+Allow: /
+
+Sitemap: {{ site.url }}/sitemap.xml
+{% else %}# The site is up but not announced yet. Nothing here is ready to be indexed.
+User-agent: *
+Disallow: /
+{% endif %}

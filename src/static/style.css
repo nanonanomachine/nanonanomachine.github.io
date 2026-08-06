@@ -1,0 +1,487 @@
+/* ---------------------------------------------------------------------------
+   yoheinakamura.dev
+
+   Direction: instrument readout. This site publishes measurements, so the
+   table is the element that gets the design attention — labels set in the body
+   serif, values in tabular mono, one magenta rule under every header row. The
+   accent is the only saturated colour on the page and appears in exactly three
+   places: link underlines, table header rules, and focus outlines.
+
+   No webfonts, no JS, no build-time CSS tooling. System stacks in three roles:
+   grotesque for display, serif for reading, mono for data.
+--------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+
+  --paper: #fbfbfc;
+  --ink: #16181d;
+  --muted: #646b75;
+  --rule: #e2e5e9;
+  --surface: #f2f4f6;
+  --signal: #b4185a;
+
+  --font-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-body: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino,
+    Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  --measure: 34rem;
+  --wide: 50rem;
+  --pad: 1.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0e1013;
+    --ink: #e6e8eb;
+    --muted: #8c949e;
+    --rule: #23272d;
+    --surface: #171a1f;
+    --signal: #ff6aa0;
+  }
+}
+
+/* --- base ---------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p,
+ul,
+ol,
+pre,
+figure,
+blockquote {
+  margin: 0;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--signal);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-thickness 90ms ease, color 90ms ease;
+}
+
+a:hover {
+  color: var(--signal);
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--paper);
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip:focus {
+  left: var(--pad);
+  top: var(--pad);
+  z-index: 10;
+  background: var(--paper);
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--rule);
+}
+
+/* --- shell --------------------------------------------------------------- */
+
+.masthead,
+main,
+.colophon {
+  max-width: var(--wide);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.masthead {
+  padding-block: 2.5rem 0;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.wordmark:hover {
+  color: var(--signal);
+}
+
+.colophon {
+  margin-top: 5rem;
+  padding-block: 1.5rem 4rem;
+  border-top: 1px solid var(--rule);
+}
+
+.disclaimer {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+
+.contact {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.7rem;
+}
+
+/* --- index --------------------------------------------------------------- */
+
+.intro {
+  padding-block: 3.5rem 3rem;
+}
+
+.intro h1 {
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 2.9rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.bio {
+  max-width: var(--measure);
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.entries {
+  list-style: none;
+  padding: 0;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0 1.75rem;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.entry-date {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  padding-top: 0.4em;
+}
+
+.entry-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  text-wrap: balance;
+}
+
+.entry-title:hover {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+}
+
+.entry-dek {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.empty {
+  padding-block: 1.5rem;
+  color: var(--muted);
+}
+
+.pager {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.pager-link {
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.pager-link:not(.is-disabled):hover {
+  color: var(--signal);
+}
+
+.pager-link.is-disabled {
+  opacity: 0.35;
+}
+
+.pager-count {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+/* --- post ---------------------------------------------------------------- */
+
+.post-head {
+  padding-block: 3rem 2.5rem;
+  max-width: var(--measure);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.post-head h1 {
+  font-size: clamp(1.9rem, 1.2rem + 2.6vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.14;
+}
+
+.dek {
+  margin-top: 1.1rem;
+  color: var(--muted);
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.repo-note {
+  max-width: var(--measure);
+  margin-top: 3rem;
+  padding: 1rem 1.25rem;
+  border-left: 2px solid var(--signal);
+  background: var(--surface);
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* --- prose --------------------------------------------------------------- */
+/* Reading column is narrow; tables, code and figures break out to --wide. */
+
+.prose > * {
+  max-width: var(--measure);
+  margin-inline: 0;
+}
+
+.prose > .table-wrap,
+.prose > pre,
+.prose > figure {
+  max-width: var(--wide);
+}
+
+.prose > * + * {
+  margin-top: 1.15em;
+}
+
+.prose > h2 {
+  font-size: 1.5rem;
+  margin-top: 3rem;
+}
+
+.prose > h3 {
+  font-size: 1.2rem;
+  margin-top: 2.25rem;
+}
+
+.prose > ul,
+.prose > ol {
+  padding-left: 1.3em;
+}
+
+.prose li + li {
+  margin-top: 0.4em;
+}
+
+.prose > blockquote {
+  border-left: 2px solid var(--rule);
+  padding-left: 1.15rem;
+  color: var(--muted);
+}
+
+.prose > hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin-block: 2.5rem;
+}
+
+.prose strong {
+  font-weight: 650;
+  color: var(--ink);
+}
+
+/* --- tables: the one element that gets the full treatment ---------------- */
+
+.table-wrap {
+  overflow-x: auto;
+  margin-block: 2rem;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.prose thead th {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+  text-align: left;
+  white-space: nowrap;
+  padding: 0 1.25rem 0.65rem 0;
+  border-bottom: 2px solid var(--signal);
+}
+
+.prose tbody td {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  padding: 0.6rem 1.25rem 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+
+/* Labels stay human, values stay machine. */
+.prose tbody td:first-child {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+  padding-right: 1.75rem;
+}
+
+.prose tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.prose th:last-child,
+.prose td:last-child {
+  padding-right: 0;
+}
+
+/* --- code ---------------------------------------------------------------- */
+
+.prose pre {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+}
+
+.prose :not(pre) > code {
+  font-size: 0.85em;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.1em 0.34em;
+  word-break: break-word;
+}
+
+/* --- narrow -------------------------------------------------------------- */
+
+@media (max-width: 34rem) {
+  :root {
+    --pad: 1.15rem;
+  }
+
+  body {
+    font-size: 1.0625rem;
+  }
+
+  .entry {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .entry-date {
+    padding-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}

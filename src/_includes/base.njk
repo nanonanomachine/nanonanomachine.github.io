@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% if title %}{{ title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{{ dek or site.description }}" />
+    <meta name="author" content="{{ site.author }}" />
+    {% if not site.indexable %}<meta name="robots" content="noindex, nofollow" />{% endif %}
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+    <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ site.url }}/feed.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/style.css" />
+
+    <meta property="og:type" content="{% if layout == 'post.njk' %}article{% else %}website{% endif %}" />
+    <meta property="og:site_name" content="{{ site.title }}" />
+    <meta property="og:title" content="{{ title or site.title }}" />
+    <meta property="og:description" content="{{ dek or site.description }}" />
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+    {# scripts/og.mjs writes one card per post slug, so posts wire themselves up. #}
+    <meta property="og:image" content="{{ site.url }}{% if image %}{{ image }}{% elif layout == 'post.njk' %}/og/{{ page.fileSlug }}.png{% else %}/og/default.png{% endif %}" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    {# On the index the <h1> already says the name; a wordmark directly above it
+       is the same words twice. Everywhere else it is the way back. #}
+    {% if page.url != "/" %}
+      <header class="masthead">
+        <a class="wordmark" href="/">{{ site.title }}</a>
+      </header>
+    {% endif %}
+
+    <main id="main">{{ content | safe }}</main>
+
+    <footer class="colophon">
+      <p class="disclaimer">{{ site.disclaimer }}</p>
+      <p class="contact">
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+        <span aria-hidden="true">·</span>
+        <a href="{{ site.github }}" rel="me">GitHub</a>
+        <span aria-hidden="true">·</span>
+        <a href="{{ site.linkedin }}" rel="me">LinkedIn</a>
+        <span aria-hidden="true">·</span>
+        <a href="/feed.xml">Feed</a>
+      </p>
+    </footer>
+  </body>
+</html>
