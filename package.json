@@ -13,5 +13,9 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0"
+  },
+  "dependencies": {
+    "markdown-it": "^15.0.0",
+    "markdown-it-anchor": "^9.2.1"
   }
 }

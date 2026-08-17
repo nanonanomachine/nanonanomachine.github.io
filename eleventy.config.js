@@ -1,6 +1,27 @@
+import markdownIt from 'markdown-it';
+import markdownItAnchor from 'markdown-it-anchor';
+
 export default function (eleventyConfig) {
   // static/ lands at the site root: style.css, CNAME, anything else served as-is.
   eleventyConfig.addPassthroughCopy({ 'src/static': '.' });
+
+  // Heading anchors: every h2-h4 gets an id and becomes its own permalink, so
+  // readers can share section URLs and in-post links like #appendix-... resolve.
+  eleventyConfig.setLibrary(
+    'md',
+    markdownIt({ html: true }).use(markdownItAnchor, {
+      level: [2, 3, 4],
+      // GitHub-style slugs: strip punctuation instead of percent-encoding it,
+      // so "Appendix: scale" -> #appendix-scale and hand-written links match.
+      slugify: (s) =>
+        s
+          .trim()
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/\s+/g, '-'),
+      permalink: markdownItAnchor.permalink.headerLink({ safariReaderFix: true }),
+    }),
+  );
 
   eleventyConfig.addFilter('isoDate', (d) => new Date(d).toISOString());
   eleventyConfig.addFilter('readableDate', (d) =>
