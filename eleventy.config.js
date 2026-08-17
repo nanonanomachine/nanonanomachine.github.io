@@ -7,21 +7,27 @@ export default function (eleventyConfig) {
 
   // Heading anchors: every h2-h4 gets an id and becomes its own permalink, so
   // readers can share section URLs and in-post links like #appendix-... resolve.
-  eleventyConfig.setLibrary(
-    'md',
-    markdownIt({ html: true }).use(markdownItAnchor, {
-      level: [2, 3, 4],
-      // GitHub-style slugs: strip punctuation instead of percent-encoding it,
-      // so "Appendix: scale" -> #appendix-scale and hand-written links match.
-      slugify: (s) =>
-        s
-          .trim()
-          .toLowerCase()
-          .replace(/[^\w\s-]/g, '')
-          .replace(/\s+/g, '-'),
-      permalink: markdownItAnchor.permalink.headerLink({ safariReaderFix: true }),
-    }),
-  );
+  const md = markdownIt({ html: true }).use(markdownItAnchor, {
+    level: [2, 3, 4],
+    // GitHub-style slugs: strip punctuation instead of percent-encoding it,
+    // so "Appendix: scale" -> #appendix-scale and hand-written links match.
+    slugify: (s) =>
+      s
+        .trim()
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-'),
+    permalink: markdownItAnchor.permalink.headerLink({ safariReaderFix: true }),
+  });
+
+  // Wrap every markdown image in a link to its own source: diagrams are far
+  // wider than the reading column, and a new tab is the only place browser
+  // zoom is unlimited. Styled as .img-zoom in style.css.
+  const renderImage = md.renderer.rules.image;
+  md.renderer.rules.image = (tokens, idx, options, env, self) =>
+    `<a class="img-zoom" href="${tokens[idx].attrGet('src')}" target="_blank" rel="noopener">${renderImage(tokens, idx, options, env, self)}</a>`;
+
+  eleventyConfig.setLibrary('md', md);
 
   eleventyConfig.addFilter('isoDate', (d) => new Date(d).toISOString());
   eleventyConfig.addFilter('readableDate', (d) =>

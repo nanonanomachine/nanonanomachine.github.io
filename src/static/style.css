@@ -28,7 +28,7 @@
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
 
-  --measure: 34rem;
+  --measure: 40rem;
   --wide: 50rem;
   --pad: 1.5rem;
 }
@@ -337,8 +337,23 @@ main,
 
 .prose > .table-wrap,
 .prose > pre,
-.prose > figure {
+.prose > figure,
+.prose > p:has(> .img-zoom) {
   max-width: var(--wide);
+}
+
+/* Markdown images are wrapped in a self-linking .img-zoom anchor (see
+   eleventy.config.js) — clicking opens the original in a new tab, where
+   browser zoom is unlimited. Inline, they fill the wide column. */
+.img-zoom {
+  display: block;
+  text-decoration: none;
+}
+
+.img-zoom img {
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
 }
 
 .prose > * + * {
