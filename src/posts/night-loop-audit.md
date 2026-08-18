@@ -157,13 +157,13 @@ July 11 – August 1
 NOTE: There's 1 inbox note whose stage can no longer be determined
 
 **56 of 66 attempts — 85% — produced PRs successfully.**
-It's also good to note that the loop generated a total of 23 inbox notes that require human decisions — detailed in [Finding 1 (§3)](#3-finding-1-what-stalled-was-the-ticket-not-the-code).
+It's also good to note that the loop generated a total of 23 inbox notes that require human decisions — detailed in Finding 1 ([§3](#3-finding-1-what-stalled-was-the-ticket-not-the-code)).
 
 The ledger, reconciled:
 - 66 attempts on 65 tickets
 	- one ticket was attempted twice after its premise failed
 - 56 produced a PR, 10 did not 
-	- 6 escalated and stopped during implementation or verification (see [Finding 1](#3-finding-1-what-stalled-was-the-ticket-not-the-code))
+	- 6 escalated and stopped during implementation or verification (see [§3](#3-finding-1-what-stalled-was-the-ticket-not-the-code))
 	- 3 found already done (1 of these left an inbox note)
 	- 1 ticket needed splitting
 - 56 PRs merge state 

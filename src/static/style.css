@@ -365,6 +365,17 @@ main,
   margin-top: 3rem;
 }
 
+/* Headings are self-links (markdown-it-anchor headerLink), but they should
+   read as headings first — underline only when pointed at. */
+.header-anchor {
+  text-decoration: none;
+}
+
+.header-anchor:hover,
+.header-anchor:focus-visible {
+  text-decoration: underline;
+}
+
 .prose > h3 {
   font-size: 1.2rem;
   margin-top: 2.25rem;
