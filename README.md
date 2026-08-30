@@ -101,7 +101,7 @@ src/
 ├── index.njk              bio + post ledger
 ├── feed.njk               Atom, hand-rolled, no plugin
 ├── posts/
-│   ├── posts.json         shared frontmatter: layout + permalink
+│   ├── posts.11tydata.js  shared frontmatter: layout + permalink
 │   └── *.md               one file per post
 └── static/                copied to the site root as-is
     ├── CNAME              yoheinakamura.dev

@@ -1,7 +1,7 @@
 {
   "title": "Yohei Nakamura",
   "url": "https://yoheinakamura.dev",
-  "indexable": false,
+  "indexable": true,
   "author": "Yohei Nakamura",
   "bio": "Fifteen years of backend and infrastructure engineering — Staff Engineer at CircleCI, now head of engineering at an AI music startup. I write about audio DSP in WebAssembly, and about running coding-agent loops in production.",
   "description": "Backend and infrastructure engineer. Writing about audio DSP in WebAssembly and running coding-agent loops in production.",
