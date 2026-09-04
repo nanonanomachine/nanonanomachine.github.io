@@ -3,7 +3,7 @@ title: "My Overnight Loop Kept Destroying Its Own Audit Trail"
 date: 2026-08-27
 ---
 
-When I started running my overnight loop (an autonomous coding agent that works on our repository at night), the target repo had both loop-generated changes and human-generated changes. For auditing the loop-generated changes, we needed audit trails. But the loop itself destroyed them.
+When I started running my overnight loop (a coding agent that works on our repository at night, with a human reviewing every change before it merges), the target repo had both loop-generated changes and human-generated changes. For auditing the loop-generated changes, we needed audit trails. But the loop itself destroyed them.
 
 This article is about how I fixed that, and how the fix ended up becoming an operations tool.
 
